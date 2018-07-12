@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "MainActivityl";
+    private static final String TAG = "MainActivity";
 
     //vars
     private DrawerLayout mDrawer;
