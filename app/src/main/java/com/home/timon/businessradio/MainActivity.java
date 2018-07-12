@@ -14,10 +14,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
+import java.util.ArrayList;
 
 import com.home.timon.businessradio.fragments.JournalFragment;
 import com.home.timon.businessradio.fragments.MoreFragment;
@@ -25,11 +30,20 @@ import com.home.timon.businessradio.fragments.ProgramFragment;
 import com.home.timon.businessradio.fragments.RadioFragment;
 import com.home.timon.businessradio.fragments.TVFragment;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
+    //vars
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
 
     // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
     // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
@@ -39,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "onCreate: started.");
+
+
 
         //loading the default fragment
         loadFragment(new RadioFragment());
@@ -87,7 +105,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
+        //endregion
+
     }
+
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
@@ -149,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
+        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
