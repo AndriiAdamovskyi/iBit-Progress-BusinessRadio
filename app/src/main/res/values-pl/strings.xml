@@ -41,4 +41,6 @@
     <string name="program11_duration">1 rok</string>
     <string name="program12_title_text">I to było w moim życiu …</string>
     <string name="program12_duration">30 minut</string>
+    <string name="business_radio_title">SPS Radio</string>
+    <string name="text_exit">Wyjdź z programu</string>
 </resources>

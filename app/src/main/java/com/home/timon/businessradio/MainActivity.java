@@ -1,5 +1,6 @@
 package com.home.timon.businessradio;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -65,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+        //actionBar.hide();
         //endregion
 
         //region NavigationDrawer
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
-        //endregion
 
     }
 

@@ -33,5 +33,4 @@
             android:title="@string/text_more"
             app:showAsAction="ifRoom" />
     </group>
-
 </menu>
