@@ -14,13 +14,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -30,8 +28,6 @@ import com.home.timon.businessradio.fragments.ProgramFragment;
 import com.home.timon.businessradio.fragments.RadioFragment;
 import com.home.timon.businessradio.fragments.TVFragment;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
@@ -40,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private Button buttonRadioPlayPause;
+    private Button buttonTVPlayPause;
+    private boolean paused;
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();

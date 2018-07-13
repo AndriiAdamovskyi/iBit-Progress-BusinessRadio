@@ -4,12 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/main_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:src="@mipmap/main_icon_spsxxhdpi"/>
+
     <TextView
+        android:id="@+id/radio_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Radio"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily=""
+        android:text="RADIO"
+        android:layout_below="@id/main_logo"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <ImageView
+        android:id="@+id/radio_icon"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/radio_text"
+        android:src="@mipmap/radio_iconxxhdpi"
+         />
+
+    <Button
+        android:id="@+id/radio_button_play_pause"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/radio_icon"
+        android:background="@mipmap/play_iconhdpi"
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>
