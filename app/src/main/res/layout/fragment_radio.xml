@@ -30,8 +30,9 @@
     <ImageView
         android:id="@+id/radio_icon"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/radio_text"
+        android:layout_above="@+id/radio_button_play_pause"
         android:src="@mipmap/radio_iconxxhdpi"
          />
 
@@ -41,7 +42,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="161dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/ic_baseline_play_arrow_24px" />
 
 </RelativeLayout>
