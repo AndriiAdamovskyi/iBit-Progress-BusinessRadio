@@ -124,7 +124,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     Log.d(TAG, "onPrepared: prepaired");
-                    mediaPlayer.start();
+                    if(mediaPlayer.isPlaying()){
+                        mediaPlayer.pause();
+                    } else {
+                        mediaPlayer.start();
+                    }
                 }
             });
             Log.d(TAG, "playRadio: ");

@@ -39,9 +39,9 @@
         android:id="@+id/radio_button_play_pause"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/radio_icon"
-        android:background="@mipmap/play_iconhdpi"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="161dp"
+        android:background="@drawable/ic_baseline_play_arrow_24px" />
 
 </RelativeLayout>
