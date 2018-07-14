@@ -2,6 +2,8 @@ package com.home.timon.businessradio;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.home.timon.businessradio.fragments.JournalFragment;
@@ -31,7 +34,7 @@ import com.home.timon.businessradio.fragments.TVFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getName();
 
     //vars
     private DrawerLayout mDrawer;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Button buttonRadioPlayPause;
     private Button buttonTVPlayPause;
     private boolean paused;
+    MediaPlayer mediaPlayer;
+    String RADIO_URL = "http://37.59.14.77:8352/listen.pls";
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
@@ -109,6 +114,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
+    public void playRadio() {
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(RADIO_URL);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    Log.d(TAG, "onPrepared: prepaired");
+                    mediaPlayer.start();
+                }
+            });
+            Log.d(TAG, "playRadio: ");
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Exception ::: IllegalArgumentException : " + e.getMessage());
+        } catch (IllegalStateException e) {
+            Log.d(TAG, "Exception ::: IllegalStateException :  " + e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.d(TAG, "IOException ::: IOException : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
