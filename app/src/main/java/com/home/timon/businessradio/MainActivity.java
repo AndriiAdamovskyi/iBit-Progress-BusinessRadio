@@ -1,9 +1,11 @@
 package com.home.timon.businessradio;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,16 @@ import android.widget.Button;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 import com.home.timon.businessradio.fragments.JournalFragment;
 import com.home.timon.businessradio.fragments.MoreFragment;
 import com.home.timon.businessradio.fragments.ProgramFragment;
@@ -44,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Button buttonTVPlayPause;
     private boolean paused;
     MediaPlayer mediaPlayer;
+    PlayerView playerView;
+    ExoPlayer player;
     String RADIO_URL = "http://37.59.14.77:8352/listen.pls";
 
     private ArrayList<String> mNames = new ArrayList<>();
@@ -53,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
     // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
     private ActionBarDrawerToggle drawerToggle;
+    private long playbackPosition = 0;
+    private int currentWindow = 0;
+    private boolean playWhenReady;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +128,86 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
+        
+        playerView = findViewById(R.id.video_view);
+        initializePlayer();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUi();
+        if((Util.SDK_INT <= 23 || player == null)){
+            initializePlayer();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+        }
+    }
+
+    private void releasePlayer() {
+        if (player != null) {
+            playbackPosition = player.getContentPosition();
+            currentWindow = player.getCurrentWindowIndex();
+            playWhenReady = player.getPlayWhenReady();
+            player.release();
+            player = null;
+        }
+    }
+
+    @SuppressLint("InlineApi")
+    private void hideSystemUi() {
+        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void initializePlayer() {
+        player = ExoPlayerFactory.newSimpleInstance(
+                new DefaultRenderersFactory(this),
+                new DefaultTrackSelector(), new DefaultLoadControl());
+
+        playerView.setPlayer(player);
+        player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentWindow, playbackPosition);
+        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
+        MediaSource mediaSource = buildMediaSource(uri);
+        player.prepare(mediaSource, true, false);
+    }
+
+    private MediaSource buildMediaSource(Uri uri) {
+        return new ExtractorMediaSource.Factory(
+                new DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri);
     }
 
     public void playRadio() {
