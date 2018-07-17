@@ -27,6 +27,7 @@ import android.widget.Button;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     MediaPlayer mediaPlayer;
     PlayerView playerView;
     ExoPlayer player;
+    View viewTV;
     String RADIO_URL = "http://37.59.14.77:8352/listen.pls";
 
     private ArrayList<String> mNames = new ArrayList<>();
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
         //loading the default fragment
-        loadFragment(new RadioFragment());
+        //loadFragment(new RadioFragment());
 
         //region Set the toolbar as ActionBar
         // Set a Toolbar to replace the ActionBar.
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
-        
+        setContentView(R.layout.activity_player);
         playerView = findViewById(R.id.video_view);
         initializePlayer();
     }
@@ -148,8 +150,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             releasePlayer();
         }
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -196,13 +196,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(this),
                 new DefaultTrackSelector(), new DefaultLoadControl());
-
-        playerView.setPlayer(player);
-        player.setPlayWhenReady(playWhenReady);
-        player.seekTo(currentWindow, playbackPosition);
         Uri uri = Uri.parse(getString(R.string.media_url_mp3));
         MediaSource mediaSource = buildMediaSource(uri);
         player.prepare(mediaSource, true, false);
+        playerView.setPlayer(player);
+        player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentWindow, playbackPosition);
+
     }
 
     private MediaSource buildMediaSource(Uri uri) {

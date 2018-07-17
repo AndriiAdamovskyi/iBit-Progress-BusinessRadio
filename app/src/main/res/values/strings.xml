@@ -41,5 +41,6 @@
     <string name="program12_duration">30 хвилин</string>
     <string name="business_radio_title">SPS Radio</string>
     <string name="text_exit">Вийти з програми</string>
-    <string name="media_url_mp3">http://lin3.ash.fast-serv.com:6026/stream_96</string>
+    <!--<string name="media_url_mp3">http://lin3.ash.fast-serv.com:6026/stream_96</string>-->
+    <string name="media_url_mp3">http://radiottl.ddns.net:8000/timeradio</string>
 </resources>
