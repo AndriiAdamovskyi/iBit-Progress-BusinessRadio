@@ -54,11 +54,12 @@ public class RadioFragment extends Fragment {
                     case R.id.radio_button_play_pause:
                         if (paused) {
                             bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_pause_24px);
-                            ((MainActivity)getActivity()).playRadio();
+                            ((MainActivity)getActivity()).startPlayer();
                             paused = false;
                         } else {
                             bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24px);
                             paused = true;
+                            ((MainActivity)getActivity()).pausePlayer();
                         }
                 }
             }

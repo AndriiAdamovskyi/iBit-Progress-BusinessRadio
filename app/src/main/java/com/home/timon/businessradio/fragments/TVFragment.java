@@ -35,7 +35,6 @@ public class TVFragment extends Fragment {
                     case R.id.tv_button_play_pause:
                         if (paused) {
                             bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_pause_24px);
-                            ((MainActivity)getActivity()).playRadio();
                             paused = false;
                         } else {
                             bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24px);

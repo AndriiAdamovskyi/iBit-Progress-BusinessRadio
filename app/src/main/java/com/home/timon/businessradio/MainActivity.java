@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     MediaPlayer mediaPlayer;
     PlayerView playerView;
     ExoPlayer player;
-    View viewTV;
-    String RADIO_URL = "http://37.59.14.77:8352/listen.pls";
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private ActionBarDrawerToggle drawerToggle;
     private long playbackPosition = 0;
     private int currentWindow = 0;
-    private boolean playWhenReady;
+    private boolean playWhenReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +78,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Log.d(TAG, "onCreate: started.");
 
-
-
         //loading the default fragment
-        //loadFragment(new RadioFragment());
+        loadFragment(new RadioFragment());
 
         //region Set the toolbar as ActionBar
         // Set a Toolbar to replace the ActionBar.
@@ -130,9 +126,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
-        setContentView(R.layout.activity_player);
+        //region Player
         playerView = findViewById(R.id.video_view);
         initializePlayer();
+        //endregion
+
     }
 
     @Override
@@ -167,6 +165,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
+    private void initializePlayer() {
+        player = ExoPlayerFactory.newSimpleInstance(
+                new DefaultRenderersFactory(this),
+                new DefaultTrackSelector(), new DefaultLoadControl());
+        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
+        MediaSource mediaSource = buildMediaSource(uri);
+        player.prepare(mediaSource, true, false);
+        playerView.setPlayer(player);
+        player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentWindow, playbackPosition);
+
+    }
+
     private void releasePlayer() {
         if (player != null) {
             playbackPosition = player.getContentPosition();
@@ -175,6 +186,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             player.release();
             player = null;
         }
+    }
+
+    public void pausePlayer(){
+        player.setPlayWhenReady(false);
+        player.getPlaybackState();
+    }
+    public void startPlayer(){
+        player.setPlayWhenReady(true);
+        player.getPlaybackState();
     }
 
     @SuppressLint("InlineApi")
@@ -192,53 +212,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void initializePlayer() {
-        player = ExoPlayerFactory.newSimpleInstance(
-                new DefaultRenderersFactory(this),
-                new DefaultTrackSelector(), new DefaultLoadControl());
-        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
-        MediaSource mediaSource = buildMediaSource(uri);
-        player.prepare(mediaSource, true, false);
-        playerView.setPlayer(player);
-        player.setPlayWhenReady(playWhenReady);
-        player.seekTo(currentWindow, playbackPosition);
-
-    }
-
     private MediaSource buildMediaSource(Uri uri) {
         return new ExtractorMediaSource.Factory(
                 new DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri);
     }
 
-    public void playRadio() {
-        mediaPlayer = new MediaPlayer();
-        try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(RADIO_URL);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    Log.d(TAG, "onPrepared: prepaired");
-                    if(mediaPlayer.isPlaying()){
-                        mediaPlayer.pause();
-                    } else {
-                        mediaPlayer.start();
-                    }
-                }
-            });
-            Log.d(TAG, "playRadio: ");
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            Log.d(TAG, "Exception ::: IllegalArgumentException : " + e.getMessage());
-        } catch (IllegalStateException e) {
-            Log.d(TAG, "Exception ::: IllegalStateException :  " + e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.d(TAG, "IOException ::: IOException : " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
