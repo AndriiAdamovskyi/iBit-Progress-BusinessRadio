@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">BusinessRadio</string>
+    <string name="text_more">Jeszcze
+</string>
+    <string name="text_journal">Journal</string>
+    <string name="text_radio">Dziennik</string>
+    <string name="text_tv">Telewizja
+</string>
+    <string name="text_program">Program</string>
+    <string name="journal_text">JazznBluesExperience is your channel for all the best jazz and blues music. Find your favorite songs and artists and experience the best of jazz music and blues music. Subscribe for free to stay</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="program1_text">Przydatny manekin dla fanów żelaznych koni. Co martwi, niepokoi lub tylko świat osiągnięć w dziedzinie szybkości i przyjazności dla środowiska w samochodzie. Wszystkie najciekawsze dla kierowców w autorskim programie Gordianiego Maxima. Twój samochód zasługuje na twoją wiedzę o świecie</string>
+    <string name="program1_title_text">Droga bez pręta</string>
+    <string name="program1_duration">10 minut samochodowych</string>
+    <string name="program2_title_text">Rano powinno być dobrze</string>
+    <string name="program2_duration">1 happy hour</string>
+    <string name="program2_text">Program poranny dla szczęścia nowego dnia, dla stworzenia dobrego samopoczucia i nałożenia na ciebie technik czyszczenia ze złych myśli. program, który sprawi, że uwierzysz w szczęście i jego przejawy w różnych formach życia! Możesz cieszyć się wspaniałą muzyką i słuchać astrologicznych prognoz na cały dzień. Można przekazać pozdrowienia i życzymy sobie dobry dzień większość tubylców i przyznać swoje uczucia do nich! W końcu to wsparcie bliskich odgrywa najsilniejszą rolę w kształtowaniu twojego spojrzenia! Stwórz i przekazuj dobrą cząstkę całej Ukrainie! Spraw, aby Twój poranek był dla nas pozytywny na fali dobrego z Butterfljak!</string>
+    <string name="program3_title_text">Historia lub jak to wszystko było</string>
+    <string name="program3_duration">15–20 niezwykle interesujących minut</string>
+    <string name="program3_text">Każdego dnia w przeszłości coś się wydarzyło, bądź świadomy świata i oddaj hołd tym, którzy uczynili świat lepszym dla ciebie! Transmisja, o niesamowitych cudach świata każdego dnia. A świat jest w rzeczywistości bezgraniczny, trzeba go znać razem.</string>
+    <string name="program4_title_text">Melodia, która cię kocha</string>
+    <string name="program4_duration">40 minut</string>
+    <string name="program4_text">To, co powoduje, że twoja krew porusza się szybciej, łatwo jest poczuć wolę i nastrój, by się zatrzasnąć. Najlepsze hity, które towarzyszą Ci przez całe życie, po prostu trzeba je podziwiać.</string>
+    <string name="program5_title_text">Świat wiadomości</string>
+    <string name="program5_duration">10 minut informacji</string>
+    <string name="program6_title_text">Pyszny lunch</string>
+    <string name="program6_duration">1 rok</string>
+    <string name="program6_text">Aby wszystko to się stało, konieczne jest przyśpieszenie wszystkich powitań. Nie pozwól, aby rutyna dnia pracy całkowicie Cię zabrała. Jak to sobie wyobrażasz, więc zadzwoń i napisz do mnie, a my to zrobimy razem). Urodziny, święta i tylko pozytywne powinny być odnotowane i cieszyć się z tego. Twoja pozytywna energia z radością sprawi uśmiech na Twoich bliskich, nigdy o nich nie zapomnisz.</string>
+    <string name="program7_title_text">Podróżuj dla duszy</string>
+    <string name="program7_duration">20 minut</string>
+    <string name="program7_text">Reszta jest dobra, najważniejsze, żeby nie zapomnieć o jego łasce. Jak, gdzie i na ogół powinieneś odwiedzić Ukrainę, powiesz Radio Butterfljaka. Szanuj naturę, chroń to, co stworzyła i wzbogacaj się energią dla szczęśliwego życia.</string>
+    <string name="program8_title_text">Dbaj o siebie</string>
+    <string name="program8_text">Daj ukochanemu romantyczny wieczór. Zbierz swoje myśli w jednym fraktale. Wiesz, ile to jest warte. Autorski program o dobroci, ciepłym uśmiechu i komforcie z ulubionego radia!</string>
+    <string name="program9_title_text">Sportowa minuta</string>
+    <string name="program10_text">Jedyny w swoim rodzaju to program autora o oczyszczeniu ciała, zrozumieniu jego wewnętrznego ja. Prawidłowa muzyka i medytacja. Wszystko o szczęściu i jego przejawach. Joga myśli, która zmieni Twoje życie na zawsze. Stań się lepszy, uwierz, że energia ciała i duszy jest ważniejsza niż rzeczy materialne. Jak to zrobić, nasz autor Maxim wie. \ "Ta harmonia w naturze, pokażę ci ją tylko … \"</string>
+    <string name="program10_duration">1 rok</string>
+    <string name="program10_title_text">Przejście świadomości</string>
+    <string name="program11_title_text">Krzesła wieczorowe</string>
+    <string name="program11_text">Wieczór po cichu przyszedł i już jesteś w domu? Dostosuj się do relaksu i życzę wszystkim szczęśliwego wieczoru. Program powitania dla tych, którzy cenią swoich bliskich.</string>
+    <string name="program11_duration">1 rok</string>
+    <string name="program12_title_text">I to było w moim życiu …</string>
+    <string name="program12_duration">30 minut</string>
+    <string name="business_radio_title">SPS Radio</string>
+    <string name="text_exit">Wyjdź z programu</string>
+</resources>

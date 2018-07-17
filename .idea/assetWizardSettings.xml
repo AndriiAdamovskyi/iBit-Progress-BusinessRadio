@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_baseline_event_24px" />
-                            <entry key="sourceFile" value="C:\Users\timon\Desktop\drawable\baseline-event-24px.svg" />
+                            <entry key="outputName" value="ic_baseline_play_arrow_24px" />
+                            <entry key="sourceFile" value="C:\Users\timon\Desktop\drawable\baseline-play_arrow-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>
