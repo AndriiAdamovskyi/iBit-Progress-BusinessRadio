@@ -45,6 +45,8 @@ public class RadioFragment extends Fragment {
 
         paused = true;
         viewFragment = inflater.inflate(R.layout.fragment_radio, container, false);
+
+        //region Button Play/Pause logic
         bt_play_pause = viewFragment.findViewById(R.id.radio_button_play_pause);
         bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24px);
         bt_play_pause.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,8 @@ public class RadioFragment extends Fragment {
                 }
             }
         });
+        //endregion
+
         return viewFragment;
     }
 }

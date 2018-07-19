@@ -2,6 +2,7 @@ package com.home.timon.businessradio;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -24,6 +25,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,14 +52,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static final String TAG = MainActivity.class.getName();
 
-    //vars
+    //region Vars
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private Button buttonRadioPlayPause;
     private Button buttonTVPlayPause;
     private boolean paused;
-    MediaPlayer mediaPlayer;
+    private VideoView myVideoView;
+
     PlayerView playerView;
     ExoPlayer player;
 
@@ -70,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private long playbackPosition = 0;
     private int currentWindow = 0;
     private boolean playWhenReady = false;
+    //endregion
 
+    //region Activity lifecycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initializePlayer();
         //endregion
 
+
+
     }
 
     @Override
@@ -148,11 +156,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             releasePlayer();
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         hideSystemUi();
-        if((Util.SDK_INT <= 23 || player == null)){
+        if ((Util.SDK_INT <= 23 || player == null)) {
             initializePlayer();
         }
     }
@@ -165,6 +174,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        //we use onSaveInstanceState in order to store the video playback position for orientation change
+        //savedInstanceState.putInt("Position", myVideoView.getCurrentPosition());
+        myVideoView.pause();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //we use onRestoreInstanceState in order to play the video playback from the stored position
+        //position = savedInstanceState.getInt("Position");
+        //myVideoView.seekTo(position);
+
+    }
+
+    //endregion
+
+    //region ExoPlayer
     private void initializePlayer() {
         player = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(this),
@@ -188,11 +217,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    public void pausePlayer(){
+    public void pausePlayer() {
         player.setPlayWhenReady(false);
         player.getPlaybackState();
     }
-    public void startPlayer(){
+
+    public void startPlayer() {
         player.setPlayWhenReady(true);
         player.getPlaybackState();
     }
@@ -206,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
+    //endregion
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -217,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 new DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri);
     }
 
-
+    //region Drawer
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -238,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_program:
                 fragmentClass = ProgramFragment.class;
                 break;
@@ -249,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragmentClass = RadioFragment.class;
                 break;
             case R.id.action_journal:
-            fragmentClass = JournalFragment.class;
+                fragmentClass = JournalFragment.class;
                 break;
             case R.id.action_more:
                 fragmentClass = MoreFragment.class;
@@ -275,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
+    //endregion
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
