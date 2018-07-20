@@ -43,4 +43,7 @@
     <string name="text_exit">Вийти з програми</string>
     <!--<string name="media_url_mp3">http://lin3.ash.fast-serv.com:6026/stream_96</string>-->
     <string name="media_url_mp3">http://radiottl.ddns.net:8000/timeradio</string>
+    <string name="ticker_text">SPS Radio playing</string>
+    <string name="notification_title">SPS Radio playing music</string>
+    <string name="notification_message">Hello!</string>
 </resources>
