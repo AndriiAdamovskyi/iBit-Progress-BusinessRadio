@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.home.timon.businessradio.MainActivity;
 import com.home.timon.businessradio.R;
 
@@ -36,6 +37,9 @@ public class RadioFragment extends Fragment {
     private boolean paused;
     private Button bt_play_pause;
     private View viewFragment;
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private String id;
+    private String name;
 
     //endregion
 
@@ -54,6 +58,9 @@ public class RadioFragment extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.radio_button_play_pause:
+
+                        AnalyticsOnClickItem("0", "Radio play button", mFirebaseAnalytics);
+
                         if (paused) {
                             bt_play_pause.setBackgroundResource(R.drawable.ic_baseline_pause_24px);
                             ((MainActivity)getActivity()).startPlayer();
@@ -69,5 +76,14 @@ public class RadioFragment extends Fragment {
         //endregion
 
         return viewFragment;
+    }
+
+    private static void AnalyticsOnClickItem(String id, String name, FirebaseAnalytics mFirebaseAnalytics) {
+        //Analytics
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 }

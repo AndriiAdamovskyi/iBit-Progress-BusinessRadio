@@ -42,6 +42,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.home.timon.businessradio.fragments.JournalFragment;
 import com.home.timon.businessradio.fragments.MoreFragment;
 import com.home.timon.businessradio.fragments.ProgramFragment;
@@ -53,27 +54,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String TAG = MainActivity.class.getName();
 
     //region Vars
+
+    //UI
+    // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
+    // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
+    private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private Button buttonRadioPlayPause;
     private Button buttonTVPlayPause;
-    private boolean paused;
     private VideoView myVideoView;
 
+    //ExoPlayer
     PlayerView playerView;
     ExoPlayer player;
+
+    //Logic
+    private boolean paused;
+    private long playbackPosition = 0;
+    private int currentWindow = 0;
+    private boolean playWhenReady = false;
+    private int position;
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
+    //etc
+    private FirebaseAnalytics mFirebaseAnalytics;
 
-    // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
-    // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
-    private ActionBarDrawerToggle drawerToggle;
-    private long playbackPosition = 0;
-    private int currentWindow = 0;
-    private boolean playWhenReady = false;
     //endregion
 
     //region Activity lifecycle
@@ -137,7 +146,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initializePlayer();
         //endregion
 
-
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
     }
 
@@ -178,7 +188,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         //we use onSaveInstanceState in order to store the video playback position for orientation change
-        //savedInstanceState.putInt("Position", myVideoView.getCurrentPosition());
+        myVideoView = findViewById(R.id.video_view2);
+        savedInstanceState.putInt("Position", myVideoView.getCurrentPosition());
         myVideoView.pause();
     }
 
@@ -186,8 +197,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         //we use onRestoreInstanceState in order to play the video playback from the stored position
-        //position = savedInstanceState.getInt("Position");
-        //myVideoView.seekTo(position);
+        myVideoView = findViewById(R.id.video_view2);
+        position = savedInstanceState.getInt("Position");
+        myVideoView.seekTo(position);
 
     }
 

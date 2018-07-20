@@ -114,8 +114,6 @@ public class TVFragment extends Fragment {
             }
         });
 
-
-
         //endregion
 
         return viewFragment;
