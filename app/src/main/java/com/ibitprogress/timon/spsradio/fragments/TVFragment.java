@@ -1,4 +1,4 @@
-package com.home.timon.spsradio.fragments;
+package com.ibitprogress.timon.spsradio.fragments;
 
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;

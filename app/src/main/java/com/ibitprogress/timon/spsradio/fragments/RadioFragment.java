@@ -1,4 +1,4 @@
-package com.home.timon.spsradio.fragments;
+package com.ibitprogress.timon.spsradio.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ibitprogress.timon.spsradio.R;
-import com.home.timon.spsradio.RadioService;
+import com.ibitprogress.timon.spsradio.RadioService;
 
 import java.util.Objects;
 

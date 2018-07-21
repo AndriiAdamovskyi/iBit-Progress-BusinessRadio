@@ -1,4 +1,4 @@
-package com.home.timon.spsradio.fragments;
+package com.ibitprogress.timon.spsradio.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
