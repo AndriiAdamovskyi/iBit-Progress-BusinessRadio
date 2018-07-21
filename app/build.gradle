@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.home.timon.businessradio"
+        applicationId "com.ibitprogress.timon.spsradio"
         minSdkVersion 22
         targetSdkVersion 27
         versionCode 1

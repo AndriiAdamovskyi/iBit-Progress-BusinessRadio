@@ -1,4 +1,4 @@
-package com.home.timon.businessradio;
+package com.home.timon.spsradio;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ibitprogress.timon.spsradio.R;
 
 /**
  * Created by User on 1/2/2018.

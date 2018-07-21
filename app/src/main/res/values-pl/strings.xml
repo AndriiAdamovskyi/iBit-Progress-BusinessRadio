@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BusinessRadio</string>
+    <string name="app_name">SPS Radio</string>
     <string name="text_more">Jeszcze
 </string>
     <string name="text_journal">Journal</string>
@@ -7,7 +7,7 @@
     <string name="text_tv">Telewizja
 </string>
     <string name="text_program">Program</string>
-    <string name="journal_text">JazznBluesExperience is your channel for all the best jazz and blues music. Find your favorite songs and artists and experience the best of jazz music and blues music. Subscribe for free to stay</string>
+    <string name="journal_text">JazznBlues Experience to Twój kanał dla najlepszej muzyki jazzowej i bluesowej. Znajdź swoje ulubione piosenki i wykonawców, a także poznaj muzykę jazzową i bluesową. Zapisz się bezpłatnie</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
     <string name="program1_text">Przydatny manekin dla fanów żelaznych koni. Co martwi, niepokoi lub tylko świat osiągnięć w dziedzinie szybkości i przyjazności dla środowiska w samochodzie. Wszystkie najciekawsze dla kierowców w autorskim programie Gordianiego Maxima. Twój samochód zasługuje na twoją wiedzę o świecie</string>

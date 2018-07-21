@@ -1,8 +1,6 @@
-package com.home.timon.businessradio;
+package com.home.timon.spsradio;
 
 import android.annotation.SuppressLint;
-import android.app.IntentService;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -21,6 +19,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.ibitprogress.timon.spsradio.R;
 
 
 public class RadioService extends Service {

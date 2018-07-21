@@ -1,4 +1,4 @@
-package com.home.timon.businessradio;
+package com.ibitprogress.timon.spsradio;
 
 import org.junit.Test;
 

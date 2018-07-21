@@ -1,4 +1,4 @@
-package com.home.timon.businessradio;
+package com.ibitprogress.timon.spsradio;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.home.timon.businessradio", appContext.getPackageName());
+        assertEquals("com.ibitprogress.timon.businessradio", appContext.getPackageName());
     }
 }

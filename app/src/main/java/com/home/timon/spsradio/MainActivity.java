@@ -1,14 +1,7 @@
-package com.home.timon.businessradio;
+package com.home.timon.spsradio;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,30 +20,19 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.zip.Inflater;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.home.timon.businessradio.fragments.JournalFragment;
-import com.home.timon.businessradio.fragments.MoreFragment;
-import com.home.timon.businessradio.fragments.ProgramFragment;
-import com.home.timon.businessradio.fragments.RadioFragment;
-import com.home.timon.businessradio.fragments.TVFragment;
+import com.ibitprogress.timon.spsradio.R;
+import com.home.timon.spsradio.fragments.JournalFragment;
+import com.home.timon.spsradio.fragments.MoreFragment;
+import com.home.timon.spsradio.fragments.ProgramFragment;
+import com.home.timon.spsradio.fragments.RadioFragment;
+import com.home.timon.spsradio.fragments.TVFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
