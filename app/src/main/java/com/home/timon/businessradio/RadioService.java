@@ -37,14 +37,23 @@ public class RadioService extends Service {
     private static int NOTIFY_ID=1337;
     private static int FOREGROUND_ID=1338;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
+    PendingIntent pIntentPlay;
+    PendingIntent pIntentPause;
+
 
     @Override
-    public void onStart(@Nullable Intent intent, int startId) {
-        super.onStart(intent, startId);
+    public void onCreate() {
+
+        Intent intentPause = new Intent(this, MainActivity.class);
+        intentPause.putExtra("PauseClick",true);
+        pIntentPause = PendingIntent.getActivity(this, 0, intentPause, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        Intent intentPlay = new Intent(this, MainActivity.class);
+        intentPlay.putExtra("PlayClick",true);
+        pIntentPlay = PendingIntent.getActivity(this, 0, intentPlay, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        super.onCreate();
     }
 
     @Override
@@ -89,10 +98,14 @@ public class RadioService extends Service {
         NotificationCompat.Builder b =
                 new NotificationCompat.Builder(this, CHANNEL_WHATEVER);
 
+
+
         b.setOngoing(true)
-                .setContentTitle("SPS Radio")
-                .setContentText("Hello asdasdasjhbdajsbdjhasdbjasbdjasbdjhasbdjhasbdjhabsd")
-                //.setSmallIcon(android.R.drawable.ic_baseline_notifications_24px);
+                .setContentTitle(getApplication().getPackageName())
+                .setContentText("")
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_baseline_play_arrow_24px, "Play", pIntentPlay)
+                .addAction(R.drawable.ic_baseline_pause_24px, "Pause", pIntentPause)
                 .setSmallIcon(R.drawable.ic_baseline_notifications_24px);
 
         return (b.build());
@@ -123,6 +136,7 @@ public class RadioService extends Service {
     }
 
     public void pausePlayer() {
+
         player.setPlayWhenReady(false);
         player.getPlaybackState();
     }

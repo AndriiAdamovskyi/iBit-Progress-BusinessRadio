@@ -3,6 +3,7 @@ package com.home.timon.businessradio;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -31,6 +32,7 @@ import android.widget.VideoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -87,6 +89,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent radio_intent = new Intent(getApplicationContext(), RadioService.class);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                //Cry about not being clicked on
+            } else if (extras.getBoolean("PauseClick")) {
+                //Do your stuff here mate :)
+                Objects.requireNonNull(getApplicationContext()).startService(radio_intent);
+            }
+            else if (extras.getBoolean("PlayClick")) {
+                //Do your stuff here mate :)
+                Objects.requireNonNull(getApplicationContext()).stopService(radio_intent);
+            }
+        }
 
         Log.d(TAG, "onCreate: started.");
 
