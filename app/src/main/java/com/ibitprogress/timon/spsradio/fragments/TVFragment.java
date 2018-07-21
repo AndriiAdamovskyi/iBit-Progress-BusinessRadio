@@ -1,4 +1,4 @@
-package com.home.timon.businessradio.fragments;
+package com.home.timon.spsradio.fragments;
 
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
@@ -14,8 +14,7 @@ import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.home.timon.businessradio.MainActivity;
-import com.home.timon.businessradio.R;
+import com.ibitprogress.timon.spsradio.R;
 
 /**
  * Created by timon9551 on 7/9/2018.

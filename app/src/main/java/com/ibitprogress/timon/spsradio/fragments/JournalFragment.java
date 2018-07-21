@@ -1,4 +1,4 @@
-package com.home.timon.businessradio.fragments;
+package com.home.timon.spsradio.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.home.timon.businessradio.R;
+import com.ibitprogress.timon.spsradio.R;
 
 /**
  * Created by timon9551 on 7/9/2018.

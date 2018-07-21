@@ -1,4 +1,4 @@
-package com.home.timon.spsradio;
+package com.ibitprogress.timon.spsradio;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -27,12 +27,11 @@ import java.util.Objects;
 
 import com.google.android.exoplayer2.util.Util;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.ibitprogress.timon.spsradio.R;
-import com.home.timon.spsradio.fragments.JournalFragment;
-import com.home.timon.spsradio.fragments.MoreFragment;
-import com.home.timon.spsradio.fragments.ProgramFragment;
-import com.home.timon.spsradio.fragments.RadioFragment;
-import com.home.timon.spsradio.fragments.TVFragment;
+import com.ibitprogress.timon.spsradio.fragments.JournalFragment;
+import com.ibitprogress.timon.spsradio.fragments.MoreFragment;
+import com.ibitprogress.timon.spsradio.fragments.ProgramFragment;
+import com.ibitprogress.timon.spsradio.fragments.RadioFragment;
+import com.ibitprogress.timon.spsradio.fragments.TVFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
