@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
@@ -22,7 +23,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 
-public class RadioService extends IntentService {
+public class RadioService extends Service {
 
 
     //ExoPlayer
@@ -36,15 +37,6 @@ public class RadioService extends IntentService {
     private static int NOTIFY_ID=1337;
     private static int FOREGROUND_ID=1338;
 
-    public RadioService() {
-        super("RadioService");
-    }
-
-
-    public RadioService(String name) {
-        super(name);
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -57,14 +49,17 @@ public class RadioService extends IntentService {
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        player = ExoPlayerFactory.newSimpleInstance(
-                new DefaultRenderersFactory(this),
-                new DefaultTrackSelector(), new DefaultLoadControl());
-        Uri uri = Uri.parse(getString(R.string.media_url_mp3));
-        MediaSource mediaSource = buildMediaSource(uri);
-        player.prepare(mediaSource, true, false);
-        //playerView.setPlayer(player);
-        player.seekTo(currentWindow, playbackPosition);
+
+        //region Start Player
+
+        playerView = MainActivity.view.findViewById(R.id.video_view);
+        initializePlayer();
+
+        //endregion
+
+        startForeground(FOREGROUND_ID,
+                buildForegroundNotification());
+
         player.setPlayWhenReady(true);
         player.getPlaybackState();
         return super.onStartCommand(intent, flags, startId);
@@ -77,23 +72,17 @@ public class RadioService extends IntentService {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onUnbind(Intent intent) {
+        player.setPlayWhenReady(false);
+        player.getPlaybackState();
+        return super.onUnbind(intent);
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return super.onBind(intent);
-    }
-
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        //region Player
-
-
-        playerView = MainActivity.view.findViewById(R.id.video_view);
-        initializePlayer();
-        //endregion
-
-        startForeground(FOREGROUND_ID,
-                buildForegroundNotification());
+        return null;
     }
 
     private android.app.Notification buildForegroundNotification() {
