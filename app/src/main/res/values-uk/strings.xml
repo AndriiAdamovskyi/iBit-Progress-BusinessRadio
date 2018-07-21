@@ -40,4 +40,9 @@
     <string name="program12_title_text">І таке в житті було…</string>
     <string name="program12_duration">30 хвилин</string>
     <string name="program12_text">Найцікавіші винаходи, які заставили світ змінитися. Найнеймовірніші історії з життя Ваших кумирів та просто неймовірне у цьому безмежному. Що до чого і з чим варто пам\'ятати, у авторській передачі на хвилях радіо, що шанує досягнення. </string>
+    <string name="business_radio_title">SPS Радіо</string>
+    <string name="text_exit">Вийти з програми</string>
+    <string name="ticker_text">Грає SPS Radio</string>
+    <string name="notification_title">SPS Radio грає музику</string>
+    <string name="media_url_mp3">http://radiottl.ddns.net:8000/timeradio</string>
 </resources>

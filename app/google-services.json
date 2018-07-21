@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "138623395763",
+    "firebase_url": "https://sps-radio.firebaseio.com",
+    "project_id": "sps-radio",
+    "storage_bucket": "sps-radio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138623395763:android:91f94d28880919e6",
+        "android_client_info": {
+          "package_name": "com.home.timon.businessradio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138623395763-s10o8clf0qdlo7a833nkcc02vsglt6fe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.home.timon.businessradio",
+            "certificate_hash": "efbb142413aa31b6eb4e17ee854b304da0aaa3dd"
+          }
+        },
+        {
+          "client_id": "138623395763-moaog616g1e578lu53dilabnd5l75sf7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCftQpZ3k7gWA13fB_Hmu7ePVE9A69nt8g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138623395763-moaog616g1e578lu53dilabnd5l75sf7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

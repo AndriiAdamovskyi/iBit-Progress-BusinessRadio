@@ -1,6 +1,14 @@
 package com.home.timon.businessradio;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,49 +22,93 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.Button;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.zip.Inflater;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.DefaultRenderersFactory;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.home.timon.businessradio.fragments.JournalFragment;
 import com.home.timon.businessradio.fragments.MoreFragment;
 import com.home.timon.businessradio.fragments.ProgramFragment;
 import com.home.timon.businessradio.fragments.RadioFragment;
 import com.home.timon.businessradio.fragments.TVFragment;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getName();
 
-    //vars
+    //region Vars
+
+    //UI
+    // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
+    // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
+    private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private Button buttonRadioPlayPause;
+    private Button buttonTVPlayPause;
+    private VideoView myVideoView;
+
+    public static View view;
+
+    //Logic
+    private boolean paused;
+
+    private int position;
 
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
+    //etc
+    private FirebaseAnalytics mFirebaseAnalytics;
 
-    // Make sure to be using android.support.v7.app.ActionBarDrawerToggle version.
-    // The android.support.v4.app.ActionBarDrawerToggle has been deprecated.
-    private ActionBarDrawerToggle drawerToggle;
+    //endregion
 
+    //region Activity lifecycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent radio_intent = new Intent(getApplicationContext(), RadioService.class);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                //Cry about not being clicked on
+            } else if (extras.getBoolean("PauseClick")) {
+                //Do your stuff here mate :)
+                Objects.requireNonNull(getApplicationContext()).startService(radio_intent);
+            }
+            else if (extras.getBoolean("PlayClick")) {
+                //Do your stuff here mate :)
+                Objects.requireNonNull(getApplicationContext()).stopService(radio_intent);
+            }
+        }
+
         Log.d(TAG, "onCreate: started.");
 
-
+        view = findViewById(android.R.id.content);//the root view
 
         //loading the default fragment
         loadFragment(new RadioFragment());
@@ -66,8 +118,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+        //actionBar.hide();
         //endregion
 
         //region NavigationDrawer
@@ -105,15 +158,74 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //endregion
 
-        //endregion
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            //initializePlayer();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            //releasePlayer();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //hideSystemUi();
+//        if ((Util.SDK_INT <= 23 || player == null)) {
+//            //initializePlayer();
+//        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            //releasePlayer();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        //we use onSaveInstanceState in order to store the video playback position for orientation change
+        //myVideoView = findViewById(R.id.video_view2);
+        //savedInstanceState.putInt("Position", myVideoView.getCurrentPosition());
+        //myVideoView.pause();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        //we use onRestoreInstanceState in order to play the video playback from the stored position
+        //myVideoView = findViewById(R.id.video_view2);
+        //position = savedInstanceState.getInt("Position");
+        //myVideoView.seekTo(position);
 
     }
 
+    //endregion
 
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    //region Drawer
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -130,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_program:
                 fragmentClass = ProgramFragment.class;
                 break;
@@ -141,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragmentClass = RadioFragment.class;
                 break;
             case R.id.action_journal:
-            fragmentClass = JournalFragment.class;
+                fragmentClass = JournalFragment.class;
                 break;
             case R.id.action_more:
                 fragmentClass = MoreFragment.class;
@@ -167,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
+    //endregion
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
@@ -230,5 +343,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
 }
 

@@ -8,10 +8,16 @@
     android:orientation="vertical"
     android:gravity="bottom">
 
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="8dp"
+        android:src="@mipmap/main_icon_spsxxhdpi" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Business Radio Title"
+        android:text="@string/business_radio_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </LinearLayout>
