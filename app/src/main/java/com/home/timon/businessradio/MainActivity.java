@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //region Play/Pause radio from notification buttons
         Intent radio_intent = new Intent(getApplicationContext(), RadioService.class);
 
         if (savedInstanceState == null) {
@@ -106,111 +105,56 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Objects.requireNonNull(getApplicationContext()).stopService(radio_intent);
             }
         }
-        //endregion
 
         Log.d(TAG, "onCreate: started.");
 
-//        view = findViewById(android.R.id.content);//the root view
+        view = findViewById(android.R.id.content);//the root view
 
         //loading the default fragment
         loadFragment(new RadioFragment());
 
         //region Set the toolbar as ActionBar
         // Set a Toolbar to replace the ActionBar.
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
         //actionBar.hide();
         //endregion
 
-//        //region NavigationDrawer
-//
-//        //getting  navigation view and attaching the listener
-//        mDrawer = findViewById(R.id.drawer_layout);
-//        drawerToggle = setupDrawerToggle();
-//        // Find our drawer view
-//        NavigationView navigationView = findViewById(R.id.nvView);
-//        // Setup drawer view
-//        setupDrawerContent(navigationView);
-//
-//        //Setup drawer listener
-//        mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
-//            @Override
-//            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-//                // Respond when the drawer's position changes
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(@NonNull View drawerView) {
-//                // Respond when the drawer is opened
-//            }
-//
-//            @Override
-//            public void onDrawerClosed(@NonNull View drawerView) {
-//                // Respond when the drawer is closed
-//            }
-//
-//            @Override
-//            public void onDrawerStateChanged(int newState) {
-//                // Respond when the drawer motion state changes
-//            }
-//        });
-//
-//        //endregion
+        //region NavigationDrawer
 
-        //region BottomBar
+        //getting  navigation view and attaching the listener
+        mDrawer = findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle();
+        // Find our drawer view
+        NavigationView navigationView = findViewById(R.id.nvView);
+        // Setup drawer view
+        setupDrawerContent(navigationView);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        //Setup drawer listener
+        mDrawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                // Create a new fragment and specify the fragment to show based on nav item clicked
-                Fragment fragment = null;
-                Class fragmentClass;
-                switch (item.getItemId()) {
-                    case R.id.action_program:
-                        fragmentClass = ProgramFragment.class;
-                        break;
-                    case R.id.action_tv:
-                        fragmentClass = TVFragment.class;
-                        break;
-                    case R.id.action_radio:
-                        fragmentClass = RadioFragment.class;
-                        break;
-                    case R.id.action_journal:
-                        fragmentClass = JournalFragment.class;
-                        break;
-                    case R.id.action_more:
-                        fragmentClass = MoreFragment.class;
-                        break;
-                    default:
-                        fragmentClass = MoreFragment.class;
-                }
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                // Respond when the drawer's position changes
+            }
 
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                // Respond when the drawer is opened
+            }
 
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                // Respond when the drawer is closed
+            }
 
-                // Highlight the selected item has been done by NavigationView
-                item.setChecked(true);
-                // Set action bar title
-                setTitle(item.getTitle());
-                // Close the navigation drawer
-                return loadFragment(fragment);
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                // Respond when the drawer motion state changes
             }
         });
-
-
 
         //endregion
 
@@ -364,43 +308,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
+
         switch (item.getItemId()) {
             case R.id.action_program:
-                fragmentClass = ProgramFragment.class;
+                fragment = new ProgramFragment();
                 break;
             case R.id.action_tv:
-                fragmentClass = TVFragment.class;
+                fragment = new TVFragment();
                 break;
             case R.id.action_radio:
-                fragmentClass = RadioFragment.class;
+                fragment = new RadioFragment();
                 break;
             case R.id.action_journal:
-                fragmentClass = JournalFragment.class;
+                fragment = new JournalFragment();
                 break;
             case R.id.action_more:
-                fragmentClass = MoreFragment.class;
+                fragment = new MoreFragment();
                 break;
-            default:
-                fragmentClass = MoreFragment.class;
         }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-        // Highlight the selected item has been done by NavigationView
-        item.setChecked(true);
-        // Set action bar title
-        setTitle(item.getTitle());
         return loadFragment(fragment);
     }
 
