@@ -42,4 +42,7 @@
     <string name="program12_text">The most interesting inventions that made the world change. The most incredible stories from the lives of your idols and just incredible in this infinite. What and what to keep in mind is the author\'s transmission on the waves of the radio, which honors the achievement.</string>
     <string name="business_radio_title">SPS Radio</string>
     <string name="text_exit">Exit the program</string>
+    <string name="ticker_text">SPS Radio playing</string>
+    <string name="notification_title">SPS Radio playing music</string>
+    <string name="media_url_mp3">http://radiottl.ddns.net:8000/timeradio</string>
 </resources>

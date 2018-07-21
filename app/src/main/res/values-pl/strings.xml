@@ -43,4 +43,8 @@
     <string name="program12_duration">30 minut</string>
     <string name="business_radio_title">SPS Radio</string>
     <string name="text_exit">Wyjdź z programu</string>
+    <string name="ticker_text">SPS Radio gra</string>
+    <string name="notification_title">SPS Radio odtwarzające muzykę</string>
+    <string name="program12_text">Najciekawsze wynalazki, które zmieniły świat. Najbardziej niesamowite historie z życia twoich idoli i po prostu niesamowite w tym nieskończoności. O czym i na co należy pamiętać, to transmisja autora na falach radia, która honoruje osiągnięcie.</string>
+    <string name="media_url_mp3">http://radiottl.ddns.net:8000/timeradio</string>
 </resources>
